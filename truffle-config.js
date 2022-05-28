@@ -4,18 +4,20 @@ require("dotenv").config();
 
 module.exports = {
   networks: {
-    development: "127.0.0.1",
-    port: 7545,
-    network_id: "*"
+    development: {
+      host: "localhost",
+      port: 7545,
+      network_id: "*" // Match any network id
+    }
   },
   contracts_directory: "./src/contracts/",
   contracts_build_directory: "./src/abis/",
   compilers: {
     solc: {
-      optimizer : {
+      optimizer: {
         enabled: true,
         runs: 200
       }
-    },
-  },
+    }
+  }
 };
