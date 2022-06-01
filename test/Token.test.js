@@ -129,7 +129,7 @@ contract("Token", ([deployer, receiver, exchange]) => {
     });
   });
 
-  describe("transfers token balances", () => {
+  describe("delegated token transfers", () => {
     let result;
     let amount;
 
@@ -170,24 +170,20 @@ contract("Token", ([deployer, receiver, exchange]) => {
     });
 
     describe("failure", async () => {
-      // it("rejects insufficient balances", async () => {
-      //   let invalidAmount;
-      //   invalidAmount = tokens(100000000); // 100 million - greater than total supply
-      //   await token
-      //     .transfer(receiver, invalidAmount, { from: deployer })
-      //     .should.be.rejectedWith(EVM_revert);
+      it("rejects insufficient amounts", async () => {
 
-      //   // Attempt transfer tokens when you have none
-      //   invalidAmount = tokens(10); //receipient has no tokens
-      //   await token
-      //     .transfer(deployer, invalidAmount, { from: receiver })
-      //     .should.be.rejectedWith(EVM_revert);
-      // });
+        let invalidAmount;
+        invalidAmount = tokens(100000000);
+        await token
+          .transferFrom(deployer, receiver, invalidAmount, { from: exchange })
+          .should.be.rejectedWith(EVM_revert);
 
-      // it("rejects invalid recipients", async () => {
-      //   await token.transfer(0x0, amount, { from: deployer }).should.be
-      //     .rejected;
-      // });
+      });
+
+      it("rejects invalid recipients", async () => {
+        await token.transferFrom(0x0, amount, { from: exchange }).should.be
+          .rejected;
+      });
     });
   });
 });
