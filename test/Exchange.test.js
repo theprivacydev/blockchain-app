@@ -1,5 +1,6 @@
 import { before, iteratee } from "lodash";
-import { tokens, EVM_revert, ETHER_ADDRESS } from "./helpers";
+import Web3 from "web3";
+import { tokens, EVM_revert, ETHER_ADDRESS, ether } from "./helpers";
 
 const Token = artifacts.require("./Token");
 const Exchange = artifacts.require("./Exchange");
@@ -31,6 +32,21 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
     it("tracks the fee percent", async () => {
       const result = await exchange.feePercent();
       result.toString().should.equal(feePercent.toString());
+    });
+  });
+
+  describe("depsiting Ether", async () => {
+    let result;
+    let amount;
+
+    beforeEach(async () => {
+      amount = ether(1);
+      result = await exchange.depositEther({ from: user1, value: amount });
+    });
+
+    it("tracks the ether deposit", async () => {
+      const balance = await exchange.tokens(ETHER_ADDRESS, user1);
+      balance.toString().should.equal(amount.toString());
     });
   });
 
