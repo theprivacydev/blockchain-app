@@ -13,7 +13,7 @@ contract Exchange {
     }
 
     function depositToken(address _token, uint256 _amount) public {
-        Token(_token).transferFrom(msg.sender, address(this), _amount);
+        require(Token(_token).transferFrom(msg.sender, address(this), _amount));
         // Send token to contract
         // Manage deposit - update balance
         // emit event
