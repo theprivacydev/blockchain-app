@@ -1,5 +1,5 @@
 import { before, iteratee } from "lodash";
-import { tokens, EVM_revert } from "./helpers";
+import { tokens, EVM_revert, ETHER_ADDRESS } from "./helpers";
 
 const Token = artifacts.require("./Token");
 const Exchange = artifacts.require("./Exchange");
@@ -75,11 +75,7 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
     describe("failure", () => {
       it("rejects Ether deposits", async () => {
         await exchange
-          .depositToken(
-            "0x0000000000000000000000000000000000000000",
-            tokens(10),
-            { from: user1 }
-          )
+          .depositToken(ETHER_ADDRESS, tokens(10), { from: user1 })
           .should.be.rejectedWith(EVM_revert);
       });
 
