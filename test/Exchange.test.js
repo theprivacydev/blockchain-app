@@ -204,18 +204,18 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
     });
 
     describe("failure", () => {
-      // it("rejects Ether deposits", async () => {
-      //   await exchange
-      //     .depositToken(ETHER_ADDRESS, tokens(10), { from: user1 })
-      //     .should.be.rejectedWith(EVM_revert);
-      // });
+      it("rejects Ether withdraws", async () => {
+        await exchange
+          .withdrawToken(ETHER_ADDRESS, tokens(10), { from: user1 })
+          .should.be.rejectedWith(EVM_revert);
+      });
 
-      // it("fails when no tokens are approved", async () => {
-      //   // Don't approve tokens before depositing
-      //   await exchange
-      //     .depositToken(token.address, tokens(10), { from: user1 })
-      //     .should.be.rejectedWith(EVM_revert);
-      // });
+      it("fails for insufficient balances", async () => {
+        // Attempt to withdraw tokens without depositing any first
+        await exchange
+          .withdrawToken(token.address, tokens(10), { from: user1 })
+          .should.be.rejectedWith(EVM_revert);
+      });
     });
   });
 });
