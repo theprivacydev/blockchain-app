@@ -101,9 +101,7 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
         event.amount
           .toString()
           .should.equal(amount.toString(), "amount is correct");
-        event.balance
-          .toString()
-          .should.equal("0", "balance is correct");
+        event.balance.toString().should.equal("0", "balance is correct");
       });
     });
 
@@ -167,6 +165,57 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
           .depositToken(token.address, tokens(10), { from: user1 })
           .should.be.rejectedWith(EVM_revert);
       });
+    });
+  });
+
+  describe("withdrawing tokens", () => {
+    let result;
+    let amount;
+
+    describe("success", () => {
+      beforeEach(async () => {
+        // Deposit tokens first
+        amount = tokens(10);
+        await token.approve(exchange.address, amount, { from: user1 });
+        await exchange.depositToken(token.address, amount, { from: user1 });
+        result = await exchange.withdrawToken(token.address, amount, {
+          from: user1
+        });
+      });
+
+      it("withdraws token funds", async () => {
+        const balance = await exchange.tokens(token.address, user1);
+        balance.toString().should.equal("0");
+      });
+
+      it("emits a Withdraw event", async () => {
+        const log = result.logs[0];
+        log.event.should.eq("Withdraw");
+        const event = log.args;
+        event.token.should.equal(token.address, "token address correct");
+        event.user.should.equal(user1, "user address is correct");
+        event.amount
+          .toString()
+          .should.equal(amount.toString(), "amount is correct");
+        event.balance
+          .toString()
+          .should.equal("0", "balance is correct");
+      });
+    });
+
+    describe("failure", () => {
+      // it("rejects Ether deposits", async () => {
+      //   await exchange
+      //     .depositToken(ETHER_ADDRESS, tokens(10), { from: user1 })
+      //     .should.be.rejectedWith(EVM_revert);
+      // });
+
+      // it("fails when no tokens are approved", async () => {
+      //   // Don't approve tokens before depositing
+      //   await exchange
+      //     .depositToken(token.address, tokens(10), { from: user1 })
+      //     .should.be.rejectedWith(EVM_revert);
+      // });
     });
   });
 });
