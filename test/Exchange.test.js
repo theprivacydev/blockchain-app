@@ -197,9 +197,7 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
         event.amount
           .toString()
           .should.equal(amount.toString(), "amount is correct");
-        event.balance
-          .toString()
-          .should.equal("0", "balance is correct");
+        event.balance.toString().should.equal("0", "balance is correct");
       });
     });
 
@@ -216,6 +214,17 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
           .withdrawToken(token.address, tokens(10), { from: user1 })
           .should.be.rejectedWith(EVM_revert);
       });
+    });
+  });
+
+  describe("checking balances", async () => {
+    beforeEach(async () => {
+      exchange.depositEther({ from: user1, value: ether(1) });
+    });
+
+    it("returns user balance", async () => {
+      const result = await exchange.balanceOf(ETHER_ADDRESS, user1);
+      result.toString().should.equal(ether(1).toString());
     });
   });
 });
