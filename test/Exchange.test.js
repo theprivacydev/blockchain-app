@@ -247,13 +247,36 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
       order.id.toString().should.equal("1", "id is correct");
       order.user.should.equal(user1, "user is correct");
       order.tokenGet.should.equal(token.address, "tokenGet is correct");
-      order.amountGet.toString().should.equal(tokens(1).toString(), "amountGet is correct");
+      order.amountGet
+        .toString()
+        .should.equal(tokens(1).toString(), "amountGet is correct");
       order.tokenGive.should.equal(ETHER_ADDRESS, "tokenGive is correct");
-      order.amountGive.toString().should.equal(ether(1).toString(), "amountGive is correct");
-      order.timestamp.toString().length.should.be.at.least(1, "timestamp is correct");
+      order.amountGive
+        .toString()
+        .should.equal(ether(1).toString(), "amountGive is correct");
+      order.timestamp
+        .toString()
+        .length.should.be.at.least(1, "timestamp is correct");
+    });
 
-    })
-
-
+    it("emits an order event", async () => {
+      const log = result.logs[0];
+      log.event.should.eq("Order");
+      const event = log.args;
+      const order = await exchange.orders("1");
+      order.id.toString().should.equal("1", "id is correct");
+      order.user.should.equal(user1, "user is correct");
+      order.tokenGet.should.equal(token.address, "tokenGet is correct");
+      order.amountGet
+        .toString()
+        .should.equal(tokens(1).toString(), "amountGet is correct");
+      order.tokenGive.should.equal(ETHER_ADDRESS, "tokenGive is correct");
+      order.amountGive
+        .toString()
+        .should.equal(ether(1).toString(), "amountGive is correct");
+      order.timestamp
+        .toString()
+        .length.should.be.at.least(1, "timestamp is correct");
+    });
   });
 });
