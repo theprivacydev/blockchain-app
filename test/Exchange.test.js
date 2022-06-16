@@ -7,7 +7,7 @@ const Exchange = artifacts.require("./Exchange");
 
 require("chai").use(require("chai-as-promised")).should();
 
-contract("Exchange", ([deployer, feeAccount, user1]) => {
+contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
   let token;
   let exchange;
   const feePercent = 10;
@@ -325,13 +325,23 @@ contract("Exchange", ([deployer, feeAccount, user1]) => {
             .toString()
             .length.should.be.at.least(1, "timestamp is correct");
         });
-
-
       });
 
       describe("failure", async () => {
+        it("rejects invalid order ids", async () => {
+          const invalidOrderId = 99999;
+          await exchange
+            .cancelOrder(invalidOrderId, { from: user1 })
+            .should.be.rejectedWith(EVM_revert);
+        });
 
-      })
+        it("rejects unauthorized cancelations", async () => {
+          // Try to cancel the order from another user
+          await exchange
+            .cancelOrder("1", { from: user2 })
+            .should.be.rejectedWith(EVM_revert);
+        });
+      });
     });
   });
 });
