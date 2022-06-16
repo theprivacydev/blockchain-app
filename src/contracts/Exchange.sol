@@ -13,6 +13,7 @@ contract Exchange {
     mapping(address => mapping(address => uint256)) public tokens;
     mapping(uint256 => _Order) public orders;
     uint256 public orderCount;
+    mapping(uint256 => bool) public orderCancelled;
 
     // Events
     event Deposit(address token, address user, uint256 amount, uint256 balance);
@@ -23,6 +24,15 @@ contract Exchange {
         uint256 balance
     );
     event Order(
+        uint256 id,
+        address user,
+        address tokenGet,
+        uint256 amountGet,
+        address tokenGive,
+        uint256 amountGive,
+        uint256 timestamp
+    );
+    event Cancel(
         uint256 id,
         address user,
         address tokenGet,
@@ -90,5 +100,9 @@ contract Exchange {
         orderCount = orderCount.add(1);
         orders[orderCount] = _Order(orderCount, msg.sender, _tokenGet, _amountGet,  _tokenGive, _amountGive, now);
         emit Order(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, now);
+    }
+
+    function cancelOrder(uint256 _id) public {
+        orderCancelled[_id] = true;
     }
 }
