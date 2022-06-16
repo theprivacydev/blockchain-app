@@ -107,6 +107,6 @@ contract Exchange {
         require(address(_order.user) == msg.sender);
         require(_order.id == _id);
         orderCancelled[_id] = true;
-        emit Cancel(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, now);
+        emit Cancel(orderCount, msg.sender, _order.tokenGet, _order.amountGet, _order.tokenGive, _order.amountGive, now);
     }
 }
