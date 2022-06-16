@@ -104,5 +104,6 @@ contract Exchange {
 
     function cancelOrder(uint256 _id) public {
         orderCancelled[_id] = true;
+        emit Cancel(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, now);
     }
 }
