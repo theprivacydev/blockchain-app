@@ -103,6 +103,9 @@ contract Exchange {
     }
 
     function cancelOrder(uint256 _id) public {
+        _Order storage _order = orders[_id];
+        require(address(_order.user) == msg.sender);
+        require(_order.id == _id);
         orderCancelled[_id] = true;
         emit Cancel(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, now);
     }
