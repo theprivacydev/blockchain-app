@@ -298,27 +298,38 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
       let result;
 
       describe("success", async () => {
-        beforeEach( async () => {
+        beforeEach(async () => {
           // user fills order
-          result = await exchange.fillOrder("1", {from: user2});
-        })
+          result = await exchange.fillOrder("1", { from: user2 });
+        });
 
         it("executes the trade & charge fees", async () => {
-            let balance;
-            balance = await exchange.balanceOf(token.address, user1);
-            balance.toString().should.equal(tokens(1).toString(), "user1 received tokens");
-            balance = await exchange.balanceOf(ETHER_ADDRESS, user2);
-            balance.toString().should.equal(ether(1).toString(), "user 2 received Ether");
-            balance = await exchange.balanceOf(ETHER_ADDRESS, user1);
-            balance.toString().should.equal("0", "user2 Ether deducted");
-            balance = await exchange.balanceOf(token.address, user2);
-            balance.toString().should.equal(tokens(0.9).toString(), "user2 tokens deducted with fee applied");
-            const feeAccount = await exchange.feeAccount();
-            balance = await exchange.balanceOf(token.address, feeAccount);
-            balance.toString().should.equal(tokens(0.1).toString(), "feeAccount received fee");
-        })
+          let balance;
+          balance = await exchange.balanceOf(token.address, user1);
+          balance
+            .toString()
+            .should.equal(tokens(1).toString(), "user1 received tokens");
+          balance = await exchange.balanceOf(ETHER_ADDRESS, user2);
+          balance
+            .toString()
+            .should.equal(ether(1).toString(), "user 2 received Ether");
+          balance = await exchange.balanceOf(ETHER_ADDRESS, user1);
+          balance.toString().should.equal("0", "user2 Ether deducted");
+          balance = await exchange.balanceOf(token.address, user2);
+          balance
+            .toString()
+            .should.equal(
+              tokens(0.9).toString(),
+              "user2 tokens deducted with fee applied"
+            );
+          const feeAccount = await exchange.feeAccount();
+          balance = await exchange.balanceOf(token.address, feeAccount);
+          balance
+            .toString()
+            .should.equal(tokens(0.1).toString(), "feeAccount received fee");
+        });
 
-        it("updates filled orders", async() => {
+        it("updates filled orders", async () => {
           const orderFilled = await exchange.orderFilled(1);
           orderFilled.should.equal(true);
         });
@@ -342,26 +353,37 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
           event.timestamp
             .toString()
             .length.should.be.at.least(1, "timestamp is present");
-        })
-      })
+        });
+      });
 
       describe("failure", async () => {
         it("rejects invalid order ids", async () => {
           const invalidOrderId = 99999;
-          await exchange.fillOrder(invalidOrderId, {from: user2}).should.be.rejectedWith(EVM_revert);
-        })
+          await exchange
+            .fillOrder(invalidOrderId, { from: user2 })
+            .should.be.rejectedWith(EVM_revert);
+        });
 
-        it("rejects already-filled orders", async() => {
+        it("rejects already-filled orders", async () => {
           // Fill the order
-          await exchange.fillOrder("1", {from: user2}).should.be.fulfilled;
+          await exchange.fillOrder("1", { from: user2 }).should.be.fulfilled;
           // Try to fill the order again
-          await exchange.fillOrder("1", {from: user2}).should.be.rejectedWith(EVM_revert);
-        })
+          await exchange
+            .fillOrder("1", { from: user2 })
+            .should.be.rejectedWith(EVM_revert);
+        });
 
+        it("rejects cancelled orders", async () => {
+          // Cancel order
+          await exchange.cancelOrder("1", { from: user1 }).should.be.fulfilled;
 
-
-      })
-    })
+          // Try to fill the order
+          await exchange
+            .fillOrder("1", { from: user2 })
+            .should.be.rejectedWith(EVM_revert);
+        });
+      });
+    });
 
     describe("cancelling orders", async () => {
       let result;
