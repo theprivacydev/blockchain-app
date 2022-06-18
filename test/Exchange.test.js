@@ -299,7 +299,7 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
 
       describe("success", async () => {
         beforeEach(async () => {
-          // user fills order
+          // user2 fills order
           result = await exchange.fillOrder("1", { from: user2 });
         });
 
@@ -312,9 +312,9 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
           balance = await exchange.balanceOf(ETHER_ADDRESS, user2);
           balance
             .toString()
-            .should.equal(ether(1).toString(), "user 2 received Ether");
+            .should.equal(ether(1).toString(), "user2 received Ether");
           balance = await exchange.balanceOf(ETHER_ADDRESS, user1);
-          balance.toString().should.equal("0", "user2 Ether deducted");
+          balance.toString().should.equal("0", "user1 Ether deducted");
           balance = await exchange.balanceOf(token.address, user2);
           balance
             .toString()
@@ -324,9 +324,6 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
             );
           const feeAccount = await exchange.feeAccount();
           balance = await exchange.balanceOf(token.address, feeAccount);
-          balance
-            .toString()
-            .should.equal(tokens(0.1).toString(), "feeAccount received fee");
         });
 
         it("updates filled orders", async () => {
