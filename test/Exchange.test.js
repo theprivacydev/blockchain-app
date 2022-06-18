@@ -315,6 +315,13 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
             balance = await exchange.balanceOf(token.address, feeAccount);
             balance.toString().should.equal(tokens(0.1).toString(), "feeAccount received fee");
         })
+
+        it("updates filled orders", async() => {
+          const orderFilled = await exchange.orderFilled(1);
+          orderFilled.should.equal(true);
+        })
+
+
       })
     })
 
