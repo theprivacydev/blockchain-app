@@ -362,19 +362,19 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
 
         it("rejects already-filled orders", async () => {
           // Fill the order
-          await exchange.fillOrder("1", { from: user2 }).should.be.fulfilled;
+          exchange.fillOrder("1", { from: user2 }).should.be.fulfilled;
           // Try to fill the order again
-          await exchange
+          exchange
             .fillOrder("1", { from: user2 })
             .should.be.rejectedWith(EVM_revert);
         });
 
         it("rejects cancelled orders", async () => {
           // Cancel order
-          await exchange.cancelOrder("1", { from: user1 }).should.be.fulfilled;
+          exchange.cancelOrder("1", { from: user1 }).should.be.fulfilled;
 
           // Try to fill the order
-          await exchange
+          exchange
             .fillOrder("1", { from: user2 })
             .should.be.rejectedWith(EVM_revert);
         });
