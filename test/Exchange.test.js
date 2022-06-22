@@ -282,17 +282,16 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
 
   describe("order actions", async () => {
     beforeEach(async () => {
-      // user1 deposits ether
-      await exchange.depositEther({ from: user1, value: ether(1) });
+      // user1 deposits ether only
+      await exchange.depositEther({ from: user1, value: ether(1) })
+      // give tokens to user2
+      await token.transfer(user2, tokens(100), { from: deployer })
+      // user2 deposits tokens only
+      await token.approve(exchange.address, tokens(2), { from: user2 })
+      await exchange.depositToken(token.address, tokens(2), { from: user2 })
       // user1 makes an order to buy tokens with Ether
-      await exchange.makeOrder(
-        token.address,
-        tokens(1),
-        ETHER_ADDRESS,
-        ether(1),
-        { from: user1 }
-      );
-    });
+      await exchange.makeOrder(token.address, tokens(1), ETHER_ADDRESS, ether(1), { from: user1 })
+    })
 
     describe("filling orders", async () => {
       let result;
