@@ -302,6 +302,7 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
           result = await exchange.fillOrder("1", { from: user2 });
         });
 
+        //user2 should receive 10% less ether
         it("executes the trade & charge fees", async () => {
           let balance;
           balance = await exchange.balanceOf(token.address, user1);
