@@ -39,7 +39,7 @@ module.exports = async function (callback) {
     console.log(`Approve ${amount} tokens from ${user2}`);
 
     // User 2 Deposits tokens
-    await exhcnage.depositToken(token.address, tokens(amount), { from: user2 });
+    await exchange.depositToken(token.address, tokens(amount), { from: user2 });
     console.log(`Deposited ${amount} tokens from ${user2}`);
 
      // Seed Cancelled order --------------
@@ -58,7 +58,7 @@ module.exports = async function (callback) {
     // Seed orders -------------------------
 
     // User 1 makes order
-    result = await exhcnage.makeOrder(
+    result = await exchange.makeOrder(
       token.address,
       tokens(100),
       ETHER_ADDRESS,
@@ -109,6 +109,19 @@ module.exports = async function (callback) {
     console.log(`Filled order from ${user2}`);
   } catch (err) {
     console.log(err);
+  }
+
+  // Wait 1 second
+  await wait(1);
+
+  // Seed Open orders -----------
+
+  // User 2 makes 10 orders
+  for (let i = 0; i <= 10; i++) {
+    result = await exchange.makeOrder(ETHER_ADDRESS, ether(0.01), token.address, tokens(10 * i), {from : user2});
+    console.log(`Made order from ${user2}`);
+    // Wait 1 second
+    await wait(1);
   }
 
   callback();
