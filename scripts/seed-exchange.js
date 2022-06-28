@@ -55,6 +55,8 @@ module.exports = async function (callback) {
     await exchange.cancelOrder(orderId, {from : user1});
     console.log(`Cancelled order from ${user1}`);
 
+    // Seed orders -------------------------
+
     // User 1 makes order
     result = await exhcnage.makeOrder(
       token.address,
@@ -64,8 +66,6 @@ module.exports = async function (callback) {
       { from: user1 }
     );
     console.log(`Made order from ${user1}`);
-
-    // Seed orders
 
     // User 2 fills order
     orderId = result.logs[0].args.id;
