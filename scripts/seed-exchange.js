@@ -70,7 +70,7 @@ module.exports = async function (callback) {
     // User 2 fills order
     orderId = result.logs[0].args.id;
     await exchange.fillOrder(orderId, { from: user2 });
-    console.log(`Filled order from ${user1}`);
+    console.log(`Filled order from ${user2}`);
 
     // wait 1 second
     await wait(1);
@@ -83,12 +83,12 @@ module.exports = async function (callback) {
       ether(0.01),
       { from: user1 }
     );
-    console.log(`Made order fomr ${user1}`);
+    console.log(`Made order from ${user1}`);
 
     // User 2 fills another order
     orderId = result.logs[0].args.id;
     await exchange.fillOrder(orderId, { from: user2 });
-    console.log(`Filled order from ${user1}`);
+    console.log(`Filled order from ${user2}`);
 
     // Wait 1 second
     await wait(1);
@@ -101,11 +101,12 @@ module.exports = async function (callback) {
       ether(0.15),
       { from: user1 }
     );
+    console.log(`Made order from ${user1}`);
 
     // User2 fills final order
     orderId = result.logs[0].args.id;
     await exchange.fillOrder(orderId, { from: user2 });
-    console.log(`Filled order from ${user1}`);
+    console.log(`Filled order from ${user2}`);
   } catch (err) {
     console.log(err);
   }
