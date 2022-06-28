@@ -1,4 +1,4 @@
-const { ether, tokens } = require("../test/helpers");
+const { ether, tokens, ETHER_ADDRESS } = require("../test/helpers");
 
 const Token = artifacts.require("Token");
 const Exchange = artifacts.require("Exchange");
@@ -41,6 +41,21 @@ module.exports = async function (callback) {
     // User 2 Deposits tokens
     await exhcnage.depositToken(token.address, tokens(amount), { from: user2 });
     console.log(`Deposited ${amount} tokens from ${user2}`);
+
+    // User 1 makes order
+    result = await exhcnage.makeOrder(token.address, tokens(10), ETHER_ADDRESS, ether(0.1), {from: user1});
+    console.log(`Made order from ${user1}`);
+
+    // User 2 fills order
+    orderId = result.logs[0].args.id;
+    await exchange.fillOrder(orderId, {from: user2});
+    console.log(`Filled order from ${user1}`);
+
+    // wait 1 second
+    await wait(1)
+
+    // User 1 makes another order
+    
 
 
   } catch (err) {
