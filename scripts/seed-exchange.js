@@ -12,8 +12,8 @@ const tokens = (n) => ether(n);
 
 const wait = (seconds) => {
   const milliseconds = seconds * 1000;
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
 module.exports = async function (callback) {
   try {
@@ -54,17 +54,23 @@ module.exports = async function (callback) {
     await exchange.depositToken(token.address, tokens(amount), { from: user2 });
     console.log(`Deposited ${amount} tokens from ${user2}`);
 
-     // Seed Cancelled order --------------
-    
+    // Seed Cancelled order --------------
+
     // User 1 makes order to get tokens
     let result;
     let orderId;
-    result = await exchange.makeOrder(token.address, tokens(100), ETHER_ADDRESS, ether(0.1), {from : user1});
+    result = await exchange.makeOrder(
+      token.address,
+      tokens(100),
+      ETHER_ADDRESS,
+      ether(0.1),
+      { from: user1 }
+    );
     console.log(`Made order from ${user1}`);
 
     // User 1 cancels oder
     orderId = result.logs[0].args.id;
-    await exchange.cancelOrder(orderId, {from : user1});
+    await exchange.cancelOrder(orderId, { from: user1 });
     console.log(`Cancelled order from ${user1}`);
 
     // Seed orders -------------------------
@@ -128,17 +134,29 @@ module.exports = async function (callback) {
 
   // Seed Open orders -----------
 
-    // User 1 makes 10 orders
-    for (let i = 0; i <= 10; i++) {
-      result = await exchange.makeOrder(token.address, tokens(10 * i), ETHER_ADDRESS, ether(0.01), {from : user1});
-      console.log(`Made order from ${user1}`);
-      // Wait 1 second
-      await wait(1);
-    }
+  // User 1 makes 10 orders
+  for (let i = 0; i <= 10; i++) {
+    result = await exchange.makeOrder(
+      token.address,
+      tokens(10 * i),
+      ETHER_ADDRESS,
+      ether(0.01),
+      { from: user1 }
+    );
+    console.log(`Made order from ${user1}`);
+    // Wait 1 second
+    await wait(1);
+  }
 
   // User 2 makes 10 orders
   for (let i = 0; i <= 10; i++) {
-    result = await exchange.makeOrder(ETHER_ADDRESS, ether(0.01), token.address, tokens(10 * i), {from : user2});
+    result = await exchange.makeOrder(
+      ETHER_ADDRESS,
+      ether(0.01),
+      token.address,
+      tokens(10 * i),
+      { from: user2 }
+    );
     console.log(`Made order from ${user2}`);
     // Wait 1 second
     await wait(1);
