@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import Web3 from "web3";
 
 function App() {
+  useEffect(() => {
+    loadBlockchainData();
+  }, []);
+
+  const loadBlockchainData = async () => {
+    const web3 = new Web3(window.ethereum);
+    console.log(web3);
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
