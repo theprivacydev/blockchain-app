@@ -10,6 +10,8 @@ function App() {
   const loadBlockchainData = async () => {
     const web3 = new Web3(window.ethereum);
     console.log(web3);
+    const network = await web3.eth.net.getNetworkType();
+    console.log(network);
   };
 
   return (
