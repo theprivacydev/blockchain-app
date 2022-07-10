@@ -43,11 +43,6 @@ function App() {
                 Link 2
               </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/#">
-                Link 3
-              </a>
-            </li>
           </ul>
         </div>
       </nav>
