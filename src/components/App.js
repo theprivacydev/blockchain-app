@@ -11,6 +11,10 @@ function App() {
     const web3 = new Web3(window.ethereum);
 
     const network = await web3.eth.net.getNetworkType();
+    console.log(network);
+
+    const accounts = await web3.eth.getAccounts();
+    console.log(accounts);
 
   };
 
