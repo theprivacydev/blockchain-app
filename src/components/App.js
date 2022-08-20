@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import Web3 from "web3";
+import Token from "../abis/Token.json";
 
 function App() {
   useEffect(() => {
@@ -9,12 +10,14 @@ function App() {
 
   const loadBlockchainData = async () => {
     const web3 = new Web3(window.ethereum);
-
     const network = await web3.eth.net.getNetworkType();
-    console.log(network);
-
+    const networkId = await web3.eth.net.getId();
+    console.log(networkId)
     const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
+    const abi = Token.abi;
+    const networks = Token.networks;
+    
+
 
   };
 
