@@ -15,8 +15,8 @@ function App() {
     const accounts = await web3.eth.getAccounts();
     const abi = Token.abi;
     const tokenAddress = Token.networks[networkId].address;
-    console.log(tokenAddress);
-
+    const token = new web3.eth.Contract(abi, tokenAddress);
+    console.log(Token);
 
     
 
