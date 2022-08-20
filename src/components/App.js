@@ -12,10 +12,12 @@ function App() {
     const web3 = new Web3(window.ethereum);
     const network = await web3.eth.net.getNetworkType();
     const networkId = await web3.eth.net.getId();
-    console.log(networkId)
     const accounts = await web3.eth.getAccounts();
     const abi = Token.abi;
-    const networks = Token.networks;
+    const tokenAddress = Token.networks[networkId].address;
+    console.log(tokenAddress);
+
+
     
 
 
