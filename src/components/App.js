@@ -17,11 +17,6 @@ function App() {
     const tokenAddress = Token.networks[networkId].address;
     const token = new web3.eth.Contract(abi, tokenAddress);
     const totalSupply = await token.methods.totalSupply().call();
-    console.log(totalSupply);
-
-    
-
-
   };
 
   return (
