@@ -2,14 +2,18 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Web3 from "web3";
 import Token from "../abis/Token.json";
+import { loadWeb3 } from "../store/interactions";
+import { useDispatch } from "react-redux";
 
 function App() {
   useEffect(() => {
     loadBlockchainData();
   }, []);
 
+  const dispatch = useDispatch();
+
   const loadBlockchainData = async () => {
-    const web3 = new Web3(window.ethereum);
+    const web3 = loadWeb3(dispatch);
     const network = await web3.eth.net.getNetworkType();
     const networkId = await web3.eth.net.getId();
     const accounts = await web3.eth.getAccounts();
