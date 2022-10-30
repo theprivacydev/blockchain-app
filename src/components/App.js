@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import Web3 from "web3";
+import { connect } from "react-redux";
 import Token from "../abis/Token.json";
 import { loadWeb3 } from "../store/interactions";
 import { useDispatch } from "react-redux";
@@ -139,11 +140,11 @@ function App() {
       </div>
     </div>
   );
+}
 
-  function mapStateToProps(state) {
-    return {
+function mapStateToProps(state) {
+  return {
 
-    }
   }
 }
 
