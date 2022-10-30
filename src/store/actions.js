@@ -11,3 +11,10 @@ export function web3AccountLoaded(account) {
     account
   };
 }
+
+export function tokenLoaded(contract) {
+  return {
+    type: "TOKEN_LOADED",
+    contract
+  };
+}
