@@ -18,3 +18,10 @@ export function tokenLoaded(contract) {
     contract
   };
 }
+
+export function exchangeLoaded(contract) {
+  return {
+    type: "EXCHANGE_LOADED",
+    contract
+  };
+}

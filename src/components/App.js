@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { loadWeb3, loadAccount, loadToken } from "../store/interactions";
+import { loadWeb3, loadAccount, loadToken, loadExchange } from "../store/interactions";
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -13,10 +13,9 @@ function App() {
 
   const loadBlockchainData = async () => {
     const web3 = loadWeb3(dispatch);
-    // const network = await web3.eth.net.getNetworkType();
     const account = await loadAccount(dispatch);
     const token = loadToken(dispatch);
-    // const totalSupply = token.methods.totalSupply().call();
+    const exchange = loadExchange(dispatch);
   };
 
   return (
