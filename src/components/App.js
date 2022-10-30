@@ -139,6 +139,12 @@ function App() {
       </div>
     </div>
   );
+
+  function mapStateToProps(state) {
+    return {
+
+    }
+  }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
