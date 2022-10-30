@@ -11,9 +11,9 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const loadBlockchainData = async () => {
+  const loadBlockchainData = () => {
     const web3 = loadWeb3(dispatch);
-    const account = await loadAccount(dispatch);
+    const account = loadAccount(dispatch);
     const token = loadToken(dispatch);
     const exchange = loadExchange(dispatch);
   };

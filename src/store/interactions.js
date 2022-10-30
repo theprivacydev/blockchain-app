@@ -26,7 +26,6 @@ export const loadToken = async (dispatch) => {
       Token.abi,
       Token.networks[networkId].address
     );
-    console.log(token);
     dispatch(tokenLoaded(token));
     return token;
   } catch (error) {
@@ -42,7 +41,6 @@ export const loadExchange = async (dispatch) => {
       Exchange.abi,
       Exchange.networks[networkId].address
     );
-    console.log(exchange);
     dispatch(exchangeLoaded(exchange));
     return exchange;
   } catch (error) {
