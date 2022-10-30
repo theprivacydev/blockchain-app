@@ -7,7 +7,8 @@ export const loadWeb3 = (dispatch) => {
   return web3;
 };
 
-export const loadAccount = async (dispatch, web3) => {
+export const loadAccount = async (dispatch) => {
+  const web3 = new Web3(window.ethereum);
   const accounts = await web3.eth.getAccounts();
   const account = accounts[0];
   dispatch(web3AccountLoaded(account));
