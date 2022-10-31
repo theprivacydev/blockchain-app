@@ -3,8 +3,9 @@ import "./App.css";
 import { connect } from "react-redux";
 import { loadWeb3, loadAccount, loadToken, loadExchange } from "../store/interactions";
 import { useDispatch } from "react-redux";
+import { accountSelector } from "../store/selectors";
 
-function App() {
+function App(props) {
   useEffect(() => {
     loadBlockchainData();
   });
@@ -17,6 +18,8 @@ function App() {
     const token = loadToken(dispatch);
     const exchange = loadExchange(dispatch);
   };
+
+  console.log(props.account);
 
   return (
     <div>
@@ -138,7 +141,7 @@ function App() {
 
 function mapStateToProps(state) {
   return {
-
+    account: accountSelector(state),
   }
 }
 
