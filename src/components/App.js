@@ -19,8 +19,6 @@ function App(props) {
     const exchange = loadExchange(dispatch);
   };
 
-  console.log(props.account);
-
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
