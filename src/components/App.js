@@ -8,7 +8,6 @@ import {
   loadExchange
 } from "../store/interactions";
 import { useDispatch } from "react-redux";
-import { accountSelector } from "../store/selectors";
 import  NavBar  from "./NavBar";
 
 function App(props) {
@@ -116,7 +115,7 @@ function App(props) {
 
 function mapStateToProps(state) {
   return {
-    account: accountSelector(state)
+   // TO DO
   };
 }
 

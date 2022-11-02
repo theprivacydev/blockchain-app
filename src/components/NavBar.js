@@ -1,10 +1,11 @@
 import React from "react";
+import { accountSelector } from "../store/selectors";
 
-function NavBar({brand, account}) {
+function NavBar(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <a className="navbar-brand" href="/#">
-        {brand}
+        {props.brand}
       </a>
       <button
         className="navbar-toggler"
@@ -18,21 +19,26 @@ function NavBar({brand, account}) {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul className="navbar-nav">
+        <ul className="navbar-nav ml auto">
           <li className="nav-item">
-            <a className="nav-link" href="/#">
-              Link 1
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/#">
-              Link 2
+            <a
+              className="nav-link small"
+              href={`https://etherscan.io/address/${props.account}`}
+              rel="noopener noreferrer"
+            >
+              {props.account}
             </a>
           </li>
         </ul>
       </div>
     </nav>
   );
+}
+
+function mapStateToProps(state) {
+  return {
+    account: accountSelector(state)
+  };
 }
 
 export default NavBar;
