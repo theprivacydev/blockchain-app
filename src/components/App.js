@@ -19,10 +19,10 @@ function App(props) {
   const dispatch = useDispatch();
 
   const loadBlockchainData = () => {
-    const web3 = loadWeb3(dispatch);
-    const account = loadAccount(dispatch);
-    const token = loadToken(dispatch);
-    const exchange = loadExchange(dispatch);
+    loadWeb3(dispatch);
+    loadAccount(dispatch);
+    loadToken(dispatch);
+    loadExchange(dispatch);
   };
 
   return (
