@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { loadWeb3, loadAccount, loadToken, loadExchange } from "../store/interactions";
+import {
+  loadWeb3,
+  loadAccount,
+  loadToken,
+  loadExchange
+} from "../store/interactions";
 import { useDispatch } from "react-redux";
 import { accountSelector } from "../store/selectors";
+import  NavBar  from "./NavBar";
 
 function App(props) {
   useEffect(() => {
@@ -21,36 +27,7 @@ function App(props) {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a className="navbar-brand" href="/#">
-          Navbar
-        </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="/#">
-                Link 1
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/#">
-                Link 2
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <NavBar brand="Fortune Token Exchange" />
       <div className="content">
         <div className="vertical-split">
           <div className="card bg-dark text-white">
@@ -139,8 +116,8 @@ function App(props) {
 
 function mapStateToProps(state) {
   return {
-    account: accountSelector(state),
-  }
+    account: accountSelector(state)
+  };
 }
 
 export default connect(mapStateToProps)(App);
