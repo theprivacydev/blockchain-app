@@ -29,15 +29,14 @@ function App(props) {
   return (
     <div>
       <NavBar brand="Fortune Token Exchange" />
-      <Content />
+      {props.contractsLoaded ? <Content /> : <div className="content"></div>}
     </div>
   );
 }
 
 function mapStateToProps(state) {
-  console.log("contractsLoaded: ", contractLoadedSelector(state));
   return {
-    // TO DO
+    contractsLoaded: contractLoadedSelector(state)
   };
 }
 
