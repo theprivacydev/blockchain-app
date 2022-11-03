@@ -19,11 +19,21 @@ function App(props) {
 
   const dispatch = useDispatch();
 
-  const loadBlockchainData = () => {
-    loadWeb3(dispatch);
-    loadAccount(dispatch);
-    loadToken(dispatch);
-    loadExchange(dispatch);
+  const loadBlockchainData = async () => {
+    const web3 = await loadWeb3(dispatch);
+    const account = await loadAccount(dispatch);
+    const token = await loadToken(dispatch);
+    if (!token) {
+      window.alert(
+        "Token smart contract not detected on the current network. Please select another network with Metamask."
+      );
+    }
+    const exchange = loadExchange(dispatch);
+    if (!exchange) {
+      window.alert(
+        "Exchange smart contract not detected on the current network. Please select another network with Metamask."
+      );
+    }
   };
 
   return (

@@ -4,8 +4,6 @@ import Token from "../abis/Token.json";
 import Exchange from "../abis/Exchange.json";
 
 const web3 = new Web3(window.ethereum);
-const contractError =
-  "Contract not deployed to the current network. Please select another network with Metamask.";
 
 export const loadWeb3 = (dispatch) => {
   dispatch(web3Loaded(web3));
@@ -29,7 +27,6 @@ export const loadToken = async (dispatch) => {
     dispatch(tokenLoaded(token));
     return token;
   } catch (error) {
-    window.alert(contractError);
     return null;
   }
 };
@@ -44,7 +41,6 @@ export const loadExchange = async (dispatch) => {
     dispatch(exchangeLoaded(exchange));
     return exchange;
   } catch (error) {
-    window.alert(contractError);
     return null;
   }
 };
