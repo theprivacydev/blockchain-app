@@ -10,7 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import NavBar from "./NavBar";
 import Content from "./Content";
-import { contractLoadedSelector } from "../store/selectors";
+import { contractsLoadedSelector } from "../store/selectors";
 
 function App(props) {
   useEffect(() => {
@@ -36,7 +36,7 @@ function App(props) {
 
 function mapStateToProps(state) {
   return {
-    contractsLoaded: contractLoadedSelector(state)
+    contractsLoaded: contractsLoadedSelector(state)
   };
 }
 

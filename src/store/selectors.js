@@ -11,4 +11,4 @@ export const tokenLoadedSelector = createSelector(tokenLoaded, (a) => a);
 const exchangeLoaded = state => get(state, 'exchange.loaded', false);
 export const exchangeLoadedSelector = createSelector(exchangeLoaded, (a) => a);
 
-export const contractLoadedSelector = createSelector(tokenLoaded, exchangeLoaded, (tl, el) => tl && el)
+export const contractsLoadedSelector = createSelector(tokenLoaded, exchangeLoaded, (tl, el) => tl && el)
