@@ -8,8 +8,9 @@ import {
   loadExchange
 } from "../store/interactions";
 import { useDispatch } from "react-redux";
-import  NavBar  from "./NavBar";
+import NavBar from "./NavBar";
 import Content from "./Content";
+import { contractLoadedSelector } from "../store/selectors";
 
 function App(props) {
   useEffect(() => {
@@ -34,8 +35,9 @@ function App(props) {
 }
 
 function mapStateToProps(state) {
+  console.log("contractsLoaded: ", contractLoadedSelector(state));
   return {
-   // TO DO
+    // TO DO
   };
 }
 
