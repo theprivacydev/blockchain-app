@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import { accountSelector } from "../store/selectors";
 
 function NavBar(props) {
+  console.log(props.account);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <a className="navbar-brand" href="/#">
@@ -19,7 +21,7 @@ function NavBar(props) {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul className="navbar-nav ml auto">
+        <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <a
               className="nav-link small"
@@ -41,4 +43,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default NavBar;
+export default connect(mapStateToProps)(NavBar);
