@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { accountSelector } from "../store/selectors";
 
 function NavBar(props) {
-  console.log(props.account);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <a className="navbar-brand" href="/#">

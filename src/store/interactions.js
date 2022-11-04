@@ -51,3 +51,16 @@ export const loadExchange = async (dispatch) => {
     return null;
   }
 };
+
+export const loadAllOrders = async (exchange, dispatch) => {
+  // Get all cancelled orderes with the "Cancel" event stream
+  const cancleStream = await exchange.getPastEvents("Cancel", {
+    fromBlock: 0,
+    toBlock: "latest"
+  });
+  console.log(cancleStream);
+
+  // Get filled ordered with "Trade" event stream
+
+  // Get all orderes with the "Order" event stream
+};

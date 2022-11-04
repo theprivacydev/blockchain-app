@@ -1,6 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { loadAllOrders } from "../store/interactions";
+import { exchangeSelector } from "../store/selectors";
+import { connect } from "react-redux";
 
-function Content() {
+function Content(props) {
+  const loadBlockchainData = async (dispatch) => {
+    await loadAllOrders(props.exchange, dispatch);
+  };
+
+  useEffect(() => {
+    loadBlockchainData();
+  });
+
   return (
     <div className="content">
       <div className="vertical-split">
@@ -87,4 +98,10 @@ function Content() {
   );
 }
 
-export default Content;
+function mapStateToProps(state) {
+  return {
+    exchange: exchangeSelector(state)
+  };
+}
+
+export default connect(mapStateToProps)(Content);
