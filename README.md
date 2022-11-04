@@ -3,7 +3,7 @@
 # ERC20 Token - Fortune Token (FTN)
 
 ## Description
-This application is designed to build and deploy an ERC20 Token in compliance with EIP standards and to build an Exchange to use it with.
+This application is designed to build and deploy an ERC20 Token in compliance with EIP standards and to build an Exchange to use the Token. It utilizes 2 smart contrats built with Solidity: one for the Token, and one for the Exchange. The front-end consists of React using Redux for global state management. 
 
 ## Table of Contents
   - [Installation](#installation)
