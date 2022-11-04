@@ -1,4 +1,9 @@
-import { web3Loaded, web3AccountLoaded, tokenLoaded, exchangeLoaded } from "./actions";
+import {
+  web3Loaded,
+  web3AccountLoaded,
+  tokenLoaded,
+  exchangeLoaded
+} from "./actions";
 import Web3 from "web3";
 import Token from "../abis/Token.json";
 import Exchange from "../abis/Exchange.json";
@@ -11,8 +16,10 @@ export const loadWeb3 = (dispatch) => {
 };
 
 export const loadAccount = async (dispatch) => {
-  const accounts = await web3.eth.getAccounts();
-  const account = accounts[0];
+  const accounts = await window.ethereum.request({
+    method: "eth_requestAccounts"
+  });
+  const account = web3.utils.toChecksumAddress(accounts[0]);
   dispatch(web3AccountLoaded(account));
   return account;
 };
