@@ -26,6 +26,7 @@ function NavBar(props) {
               className="nav-link small"
               href={`https://etherscan.io/address/${props.account}`}
               rel="noopener noreferrer"
+              target="_blank"
             >
               {props.account}
             </a>
