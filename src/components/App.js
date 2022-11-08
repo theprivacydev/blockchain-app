@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import {
   loadWeb3,
   loadAccount,
   loadToken,
   loadExchange
 } from "../store/interactions";
-import { useDispatch } from "react-redux";
 import NavBar from "./NavBar";
 import Content from "./Content";
 import { contractsLoadedSelector } from "../store/selectors";

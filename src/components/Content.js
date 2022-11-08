@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import { loadAllOrders } from "../store/interactions";
 import { exchangeSelector } from "../store/selectors";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 function Content(props) {
-  const loadBlockchainData = async (dispatch) => {
+  const dispatch = useDispatch();
+  const loadBlockchainData = async () => {
     await loadAllOrders(props.exchange, dispatch);
   };
 
